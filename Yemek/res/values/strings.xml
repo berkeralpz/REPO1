@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Yemek</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">Yemek Widget</string>
+    <string name="action_settings">Uygulama Hakında</string>
     <string name="hello_world">Hello world!</string>
+    <string name="app_name_about">Uygulama Hakkında</string>
 
 </resources>

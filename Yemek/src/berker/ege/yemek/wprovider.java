@@ -4,6 +4,7 @@ package berker.ege.yemek;
 
 import java.util.Calendar;
 
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
@@ -14,7 +15,8 @@ import android.widget.RemoteViews;
 
 
 public class wprovider extends AppWidgetProvider {
-	 RemoteViews rmv;
+	Context context;
+	RemoteViews rmv;
 	 AppWidgetManager awm;
 	 ComponentName cmName;
 	 String yemek;
@@ -64,6 +66,10 @@ public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 		    appWidgetManager.updateAppWidget(appWidgetIds, rmv);
 		    // TODO Auto-generated method stub
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
+	}
+	public void bildir(){
+		
+	
 	}
 	}
 

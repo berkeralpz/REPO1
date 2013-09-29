@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider 
     xmlns:android="http://schemas.android.com/apk/res/android" 
-    android:previewImage="@drawable/floating" android:updatePeriodMillis="20" 
+    android:previewImage="@drawable/floating" 
+    android:updatePeriodMillis="20" 
     android:initialLayout="@layout/widgetv" 
     android:initialKeyguardLayout="@layout/widgetv" 
     android:minResizeWidth="300dp" 
