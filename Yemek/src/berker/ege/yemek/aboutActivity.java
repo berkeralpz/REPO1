@@ -22,6 +22,10 @@ public class aboutActivity extends Activity {
 				Intent kaynakkod=new Intent(Intent.ACTION_VIEW);
 				kaynakkod.setData(Uri.parse(url));
 				startActivity(kaynakkod);
+				/*MainActivity  sinif = new MainActivity();
+				sinif.ayarlarioku();
+				//baþka sýnýftan metod çaðýrmak için//
+				*/
 			}
 		});
 }

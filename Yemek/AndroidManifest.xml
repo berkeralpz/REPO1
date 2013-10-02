@@ -7,7 +7,6 @@
     <uses-sdk
         android:minSdkVersion="14"
         android:targetSdkVersion="18" />
-
     <application
         android:allowBackup="true"
         android:icon="@drawable/floating"
@@ -19,24 +18,18 @@
             </intent-filter>
             <meta-data android:name="android.appwidget.provider" android:resource="@xml/widget" />
         </receiver>
-        
-        
         <activity
             android:name="berker.ege.yemek.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-   
-        <activity
-            android:name="berker.ege.yemek.notification" />
+        <service android:name=".bService"/>
         <activity
             android:name="berker.ege.yemek.aboutActivity"
-            android:label="@string/app_name_about" 
-            />
+            android:label="@string/app_name_about" />
         
         </application>
 
