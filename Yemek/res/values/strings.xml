@@ -5,5 +5,6 @@
     <string name="action_settings">Uygulama Hakında</string>
     <string name="hello_world">Hello world!</string>
     <string name="app_name_about">Uygulama Hakkında</string>
+    <string name="url">http://techrehber.comeze.com/yemek.xml</string>
 
 </resources>

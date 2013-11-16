@@ -12,17 +12,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="44dp"
         android:text="Uygulama: Yemek Listesi Widget"
-        android:textColor="#ffffff" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="16dp"
-        android:text="Son derlenme tarihi: 02.10.2013"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView3"
@@ -31,8 +22,9 @@
         android:layout_alignLeft="@+id/textView2"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="18dp"
-        android:text="Versiyon: Beta-1.2"
-        android:textColor="#ffffff" />
+        android:text="Versiyon: 2.2(Dendrocnide)"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView1"
@@ -43,7 +35,8 @@
         android:layout_marginLeft="41dp"
         android:layout_marginTop="18dp"
         android:text="Geliştirici: Berker Alpöz"
-        android:textColor="#FFFFFF" />
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/linkview"
@@ -51,9 +44,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="61dp"
+        android:layout_marginBottom="15dp"
         android:text="→Kaynak Kodları←"
-        android:textColor="#00CCFF" />
+        android:textColor="#00CCFF"
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/textView5"
@@ -61,9 +55,42 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/linkview"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="22dp"
+        android:layout_marginBottom="37dp"
         android:paddingLeft="15dp"
         android:text="Dikkat burada emek var! Eğer beğenmediyseniz siz geliştirebilirsiniz. Kaynak kodları aşağıda..."
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="21dp"
+        android:text="Son derlenme tarihi: 16.11.2013"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_below="@+id/textView4"
+        android:layout_marginTop="21dp"
+        android:text="Derleyici: Eclipse Juno(API 18) "
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView5"
+        android:layout_alignLeft="@+id/linkview"
+        android:layout_marginBottom="46dp"
+        android:text="HINKORGA"
+        android:textSize="30sp" />
 
 </RelativeLayout>

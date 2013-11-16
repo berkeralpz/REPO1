@@ -1,78 +1,107 @@
 package berker.ege.yemek;
 
+import java.io.BufferedInputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.Calendar;
 
-import android.app.Notification;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import android.app.IntentService;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.IBinder;
+import android.content.SharedPreferences.Editor;
+import android.util.Log;
+import android.widget.RemoteViews;
+import android.widget.Toast;
 
-public class bService extends Service {
-	private static final String PREF_TATLI="PREF_TATLI";
-	private static final String PREF_YEMEK="PREF_YEMEK";
-	private SharedPreferences preferences;
-	@Override
-	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
-		return null;
+public class bService extends IntentService {
+	
+	private static final String TAG = "YemekWidgetIntentService";
+	private static final String PREF_GENEL = "PREF_GENEL";
+	private static final String PREF_MENU = "PREF_MENU";
+	SharedPreferences preferences;
+	Context context;
+	RemoteViews rmv;
+	 ComponentName cmName;
+	public bService() {
+		super("YemekWidgetIntentService");
 	}
-@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
-		// TODO Auto-generated method stub
-	    new Thread(new Runnable(){
-	    	@Override
-			public void run() {
-				final Calendar ca= Calendar.getInstance();
-				int saat=ca.get(Calendar.HOUR_OF_DAY);
-				int gu=ca.get(Calendar.DAY_OF_MONTH);
-				if(saat>17){
-				int gun=gu+1;
-				// TODO Auto-generated method stub
-				preferences = getSharedPreferences("PREF_GENEL",
-				        MODE_PRIVATE);
-				boolean tatlisecilimi=preferences.getBoolean(PREF_YEMEK, false);
-				if(tatlisecilimi==true){	
-				if(gun==8||gun==10||gun==23||gun==11||gun==30){
-			    NotificationManager notman;
-			    notman=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-				Notification bildirim=new Notification(R.drawable.yemek,"Yemekte tatlý var!",System.currentTimeMillis());
-				Intent intent1=new Intent(Intent.ACTION_MAIN);
-				intent1.addCategory(Intent.CATEGORY_HOME);
-				PendingIntent contentIntent=PendingIntent.getActivity(bService.this, 0, intent1, 0);
-				bildirim.setLatestEventInfo(bService.this, "Afiyet Olsun!", "Yarýn yemekte tatlý var!", contentIntent);
-				notman.notify(0,bildirim);
+	@Override
+	protected void onHandleIntent(Intent intent) {
+		String YemekListUrl = getResources().getString(R.string.url);
+		if(isYemekTakip(YemekListUrl)) {
+		}
+		}
+	private boolean isYemekTakip(String YemekListUrl) {
+		HttpURLConnection urlConnection = null;
+		try {
+			URL url = new URL(YemekListUrl);
+			urlConnection = (HttpURLConnection) url.openConnection();
+            int sonucKodu = urlConnection.getResponseCode();
+			if (sonucKodu == HttpURLConnection.HTTP_OK) {
+				BufferedInputStream stream = new BufferedInputStream(urlConnection.getInputStream());
+				return isYemekTakipInputStream(stream);
+			}
+			} catch (Exception e) {
+			Log.d(TAG, "HTTP baðlantýsý kurulurken hata oluþtu", e);
+		} finally {
+			if (urlConnection != null)
+				urlConnection.disconnect();
+		}
+		return false;
+		}
+	private boolean isYemekTakipInputStream(BufferedInputStream stream) {
+		try {
+			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
+			Document document = docBuilder.parse(stream);
+			Element firstCube = (Element) document.getElementsByTagName("Cube").item(0);
+			Element secondCube = (Element) firstCube.getElementsByTagName("Cube").item(0);
+			NodeList YemekNodeList = secondCube.getElementsByTagName("Cube");
+			int YemekNodeListLength = YemekNodeList.getLength();
+			for (int i = 0; i < YemekNodeListLength; i++) {
+				Element MenuElement = (Element) YemekNodeList.item(i);
+				String buguntarih = MenuElement.getAttribute("tarih");
+				Calendar c=Calendar.getInstance();
+				int tarihb=c.get(Calendar.DAY_OF_MONTH);
+				int saat =c.get(Calendar.HOUR_OF_DAY);
+				if(saat>=12){
+					tarihb++;
 				}
-				}
-				boolean yemeksecilimi=preferences.getBoolean(PREF_TATLI, false);	 
-				if(yemeksecilimi==true){
-					if(gun==3||gun==4||gun==8||gun==11||gun==22||gun==25||gun==28||gun==31){
-				    NotificationManager notman;
-				    notman=(NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-					Notification bildirim=new Notification(R.drawable.yemek,"Yemek güzel!",System.currentTimeMillis());
-					Intent intent1=new Intent(Intent.ACTION_MAIN);
-					intent1.addCategory(Intent.CATEGORY_HOME);
-					PendingIntent contentIntent=PendingIntent.getActivity(bService.this, 0, intent1, 0);
-					bildirim.setLatestEventInfo(bService.this, "Afiyet Olsun!", "Yarýnki yemek hoþuna gidebilir!", contentIntent);
-					notman.notify(0,bildirim);
+				String tarihc=String.valueOf(tarihb);
+				preferences=getSharedPreferences(PREF_GENEL,MODE_PRIVATE);
+				if(tarihc.equals(buguntarih)){
+					String bugunyemek = MenuElement.getAttribute("yemek");
+					Editor editor=preferences.edit();
+					editor.putString(PREF_MENU, bugunyemek);
+					editor.apply();
+					Intent intent = new Intent(this, wprovider.class);
+					intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+					int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), wprovider.class));
+					intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+					sendBroadcast(intent);
 					}
 				}
-				}
-				}
-			}).start();
-		return Service.START_STICKY;
+			} 
+		
+		catch (Exception e) {
+			Log.d(TAG, "XML parse edilirken hata oluþtu", e);
+			}
+		stopSelf();
+		return false;
+	
 	}
-@Override
-	public void onCreate() {
-		// TODO Auto-generated method stub
-		super.onCreate();
-		}
-@Override
-	public void onDestroy() {
-		// TODO Auto-generated method stub
-	//Servis durdurulduðunda
-		super.onDestroy();
+	
 	}
-}
+

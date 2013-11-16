@@ -1,10 +1,9 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#CCFFFF"
     android:orientation="vertical"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
@@ -21,14 +20,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
-            android:text="Yemekte tatlı olduğunda haber ver:" />
+            android:text="Yemekte tatlı olduğunda haber ver:"
+            android:visibility="invisible" />
 
         <CheckBox
             android:id="@+id/Ttatli"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/textView1" />
+            android:layout_toRightOf="@+id/textView1"
+            android:visibility="invisible" />
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -45,23 +47,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
-            android:text="Sevilen yemek olduğunda haber ver:" />
+            android:text="Sevilen yemek olduğunda haber ver:"
+            android:visibility="invisible" />
 
         <CheckBox
             android:id="@+id/Tyemek"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/TextView01" />
-    </RelativeLayout>
+            android:layout_toRightOf="@+id/TextView01"
+            android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/kaydet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Ayarları Kaydet!" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -75,7 +72,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:text="Bu uygulama okulumuzun aylık yemek listesini otomatik güncellenen bir widget ile size sunmaktadır. Dilerseniz aşağıdaki ayarları kullanarak sevilen yemeklerin olduğu günler bildirim alabilirsiniz." />
+            android:text="Bu uygulamanın amacı okulumuzun aylık yemek listesini otomatik güncellenen bir widget ile kullanıcıya sunmaktır. Uzun süren çabalarım sonucu uygulamanın kendi kendine günlük yemek listesini internet üzerinden çekerek widget&apos;a sunması mümkün hale getirilmiştir. Widget&apos;ı Widget&apos;lar sekmesinden ana sayfanıza taşıyarak kullanabilirsiniz. "
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/textView2"
@@ -83,7 +82,43 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:text="Merhaba arkadaşlar," />
+            android:text="Merhaba arkadaşlar,"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/kaydet"
+        android:background="#CC0000"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Çıkış"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/aboutButton"
+        android:background="#669933"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/kaydet"
+        android:layout_alignParentLeft="true"
+        android:shadowDx="50"
+        android:shadowDy="50"
+        android:shadowRadius="50"
+        android:text="Uygulama Hakkında"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/guncelle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/aboutButton"
+        android:layout_centerHorizontal="true"
+        android:background="#0066CC"
+        android:text="Widget&apos;ı Güncelle"
+        android:textSize="25sp" />
 
 </RelativeLayout>
