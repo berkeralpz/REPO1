@@ -13,8 +13,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import android.app.IntentService;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -23,7 +21,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 public class bService extends IntentService {
 	
@@ -93,6 +90,7 @@ public class bService extends IntentService {
 					sendBroadcast(intent);
 					}
 				}
+			stopSelf();
 			} 
 		
 		catch (Exception e) {

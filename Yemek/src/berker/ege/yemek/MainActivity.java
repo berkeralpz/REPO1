@@ -15,9 +15,7 @@ import android.widget.Toast;
 public class MainActivity extends Activity {
 private static final String PREF_TATLI="PREF_TATLI";
 private static final String PREF_YEMEK="PREF_YEMEK";
-private static final String PREF_MENU="PREF_MENU";
 private CheckBox tatli,yemek;
-private static final String PREF_GENEL="PREF_GENEL";
 private static final int ID_ABOUT=Menu.FIRST;
 private SharedPreferences preferences;
 @Override
@@ -50,7 +48,9 @@ private SharedPreferences preferences;
 			@Override
 			public void onClick(View v) {
 			Intent toabout = new Intent(MainActivity.this,aboutActivity.class);	
+			toabout.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 			startActivity(toabout);
+			overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 			}
 		});
 		 kaydet.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +90,7 @@ public void ayarlariyaz(){
 		switch(item.getItemId()){
 	case ID_ABOUT:
 		Intent hakkindayiac=new Intent(MainActivity.this,aboutActivity.class);
-			startActivity(hakkindayiac);
+	    startActivity(hakkindayiac);
 		return super.onOptionsItemSelected(item);
 	}
 		return false;

@@ -15,6 +15,6 @@ public class bReceiver extends BroadcastReceiver {
 		AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		Intent serviceIntent = new Intent(context, bService.class);
 		PendingIntent pendingIntent = PendingIntent.getService(context, 1, serviceIntent, 0);
-		manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, INTERVAL, INTERVAL, pendingIntent);
+		manager.setRepeating(AlarmManager.ELAPSED_REALTIME, INTERVAL, INTERVAL, pendingIntent);
 		}
 }
