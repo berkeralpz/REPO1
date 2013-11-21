@@ -1,5 +1,8 @@
 package berker.ege.yemek;
 
+import java.util.Calendar;
+
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,18 +13,53 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
 private static final String PREF_TATLI="PREF_TATLI";
 private static final String PREF_YEMEK="PREF_YEMEK";
-private CheckBox tatli,yemek;
-private static final int ID_ABOUT=Menu.FIRST;
+private static final String PREF_MENU = "PREF_MENU";
+//private CheckBox tatli,yemek;
+private static final int ID_THOUGHTS=Menu.FIRST;
 private SharedPreferences preferences;
+String gun;
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		Button gorus=(Button)findViewById(R.id.gorus);
+		gorus.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				String brand = Build.BRAND; 
+				 String model = Build.MODEL; 
+				 String cihaz=brand+" "+model;
+				final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+				emailIntent.setType("plain/text");
+				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"berkeralpz@gmail.com"});
+				emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "YemekWidget"+"("+cihaz+")"+" Görüþlerim");
+				emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Uygulama Hakkýndaki Görüþlerim: ");
+				startActivity(Intent.createChooser(emailIntent, "Mail göndermek için uygulama seçiniz..."));
+				//Görüþleri e-mail yoluyla ilet; konuya cihaz modelini yaz
+			}
+		});
+		preferences = getSharedPreferences("PREF_GENEL",
+		        MODE_PRIVATE);
+		TextView yemekview=(TextView)findViewById(R.id.yemekv);
+	String yimek=preferences.getString(PREF_MENU, "");
+		//yemekview.setText("Bugünkü yemek: "+yimek);
+		Calendar c=Calendar.getInstance();
+		if(c.get(Calendar.HOUR_OF_DAY)<13){
+			gun=" Bugünkü";
+		}
+		else if (c.get(Calendar.HOUR_OF_DAY)>=13){
+			gun=" Yarýnki";
+			}
+		yemekview.setText(gun+" "+"Yemek: "+yimek);
+		//bugün-yarýn kavramlarýný ayýrt edebilmek için
+		
 		Button guncelle= (Button)findViewById(R.id.guncelle);
 		guncelle.setOnClickListener(new View.OnClickListener() {
 			
@@ -32,15 +70,17 @@ private SharedPreferences preferences;
 				startService(a);
 				Toast.makeText(MainActivity.this,"Widget Güncellendi!", Toast.LENGTH_SHORT).show();
 			    Intent kapat=new Intent(Intent.ACTION_MAIN);
-				kapat.addCategory(Intent.CATEGORY_HOME);
+			    kapat.addCategory(Intent.CATEGORY_HOME);
 				startActivity(kapat);
 				}
 		});
 		preferences = getSharedPreferences("PREF_GENEL",
 		        MODE_PRIVATE);
 		// ayarlarioku();
-	     yemek=(CheckBox)findViewById(R.id.Tyemek);
-		 tatli=(CheckBox)findViewById(R.id.Ttatli);
+	    // yemek=(CheckBox)findViewById(R.id.Tyemek);
+		// tatli=(CheckBox)findViewById(R.id.Ttatli);
+		//Önceden kullanýlan CheckBox'lar kullanýmdan kaldýrýldý. 
+		//Bu özelliðe gerek yoktu ve Yüklenme süresini uzatabilirdi.
 		 Button kaydet=(Button)findViewById(R.id.kaydet);
 		 Button about=(Button)findViewById(R.id.aboutButton);
 		 about.setOnClickListener(new View.OnClickListener() {
@@ -68,30 +108,37 @@ private SharedPreferences preferences;
 }
 public void ayarlariyaz(){
 		Editor editor=preferences.edit();
-		editor.putBoolean(PREF_TATLI, tatli.isChecked());
-		editor.putBoolean(PREF_YEMEK, yemek.isChecked());
+		//editor.putBoolean(PREF_TATLI, tatli.isChecked());
+		//editor.putBoolean(PREF_YEMEK, yemek.isChecked());
 		editor.apply();
 	}
 	public void ayarlariokuveuygula(){
 		boolean tatlisecilimi=preferences.getBoolean(PREF_TATLI, false);
 		 boolean yemeksecilimi=preferences.getBoolean(PREF_YEMEK, false);
-		 tatli.setChecked(tatlisecilimi);
-		 yemek.setChecked(yemeksecilimi);
+		// tatli.setChecked(tatlisecilimi);
+		// yemek.setChecked(yemeksecilimi);
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		menu.add(Menu.NONE,ID_ABOUT,0,"Uygulama Hakkýnda");
+		menu.add(Menu.NONE,ID_THOUGHTS,0,"Görüþ Bildir");
 		return true;
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch(item.getItemId()){
-	case ID_ABOUT:
-		Intent hakkindayiac=new Intent(MainActivity.this,aboutActivity.class);
-	    startActivity(hakkindayiac);
-		return super.onOptionsItemSelected(item);
+	case ID_THOUGHTS:
+		 String brand = Build.BRAND; 
+		 String model = Build.MODEL; 
+		 String cihaz=brand+" "+model;
+		final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+		emailIntent.setType("plain/text");
+		emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"berkeralpz@gmail.com"});
+		emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "YemekWidget"+"("+cihaz+")"+" Görüþlerim");
+		emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Uygulama Hakkýndaki Görüþlerim: ");
+		startActivity(Intent.createChooser(emailIntent, "Mail göndermek için uygulama seçiniz..."));
+			return super.onOptionsItemSelected(item);
 	}
 		return false;
 	}

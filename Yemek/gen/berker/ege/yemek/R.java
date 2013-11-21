@@ -27,28 +27,32 @@ public final class R {
     public static final class drawable {
         public static final int floating=0x7f020000;
         public static final int logo=0x7f020001;
-        public static final int transback=0x7f020002;
+        public static final int tex=0x7f020002;
+        public static final int texture=0x7f020003;
+        public static final int transback=0x7f020004;
     }
     public static final class id {
-        public static final int TextView01=0x7f0a000c;
-        public static final int Ttatli=0x7f0a000b;
-        public static final int Tyemek=0x7f0a000d;
-        public static final int aboutButton=0x7f0a000e;
-        public static final int action_settings=0x7f0a0012;
+        public static final int aboutButton=0x7f0a0010;
+        public static final int action_settings=0x7f0a0014;
+        public static final int gorus=0x7f0a0011;
         public static final int guncelle=0x7f0a000f;
-        public static final int imageView1=0x7f0a0011;
-        public static final int kaydet=0x7f0a000a;
-        public static final int linkview=0x7f0a0008;
-        public static final int relativeLayout1=0x7f0a0009;
+        public static final int imageView1=0x7f0a0013;
+        public static final int kaydet=0x7f0a000c;
+        public static final int linkview=0x7f0a000a;
+        public static final int relativeLayout1=0x7f0a000b;
+        public static final int relativeLayout2=0x7f0a000e;
+        public static final int relativeLayout3=0x7f0a000d;
         public static final int scrollView1=0x7f0a0000;
         public static final int textView1=0x7f0a0001;
-        public static final int textView2=0x7f0a0002;
-        public static final int textView3=0x7f0a0003;
-        public static final int textView4=0x7f0a0004;
-        public static final int textView5=0x7f0a0005;
-        public static final int textView6=0x7f0a0006;
-        public static final int textView7=0x7f0a0007;
-        public static final int wlay=0x7f0a0010;
+        public static final int textView2=0x7f0a0004;
+        public static final int textView3=0x7f0a0005;
+        public static final int textView4=0x7f0a0006;
+        public static final int textView5=0x7f0a0007;
+        public static final int textView6=0x7f0a0008;
+        public static final int textView7=0x7f0a0009;
+        public static final int textView8=0x7f0a0002;
+        public static final int wlay=0x7f0a0012;
+        public static final int yemekv=0x7f0a0003;
     }
     public static final class layout {
         public static final int activity_about=0x7f030000;

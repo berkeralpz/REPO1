@@ -30,7 +30,7 @@ public void onUpdate(Context context, AppWidgetManager appWidgetManager,
 		yemek=preferences.getString(PREF_MENU, "Güncel Menü Ýndirilemedi! Baðlantýnýzý Kontol Ediniz...");
 		rmv=new RemoteViews(context.getPackageName(), R.layout.widgetv);
 		cmName = new ComponentName(context, wprovider.class);
-		rmv.setTextViewText(R.id.textView1,yemek);
+		rmv.setTextViewText(R.id.yemekv,yemek);
 		appWidgetManager.updateAppWidget(cmName, rmv);
 		Intent configIntent = new Intent(context, MainActivity.class);
 		 PendingIntent configPendingIntent = PendingIntent.getActivity(context, 0, configIntent, 0);
