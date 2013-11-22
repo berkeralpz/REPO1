@@ -31,7 +31,8 @@ public class bService extends IntentService {
 	Context context;
 	RemoteViews rmv;
 	 ComponentName cmName;
-	public bService() {
+	
+	 public bService() {
 		super("YemekWidgetIntentService");
 	}
 	@Override
@@ -40,8 +41,11 @@ public class bService extends IntentService {
 		if(isYemekTakip(YemekListUrl)) {
 		}
 		}
+	
 	private boolean isYemekTakip(String YemekListUrl) {
+		
 		HttpURLConnection urlConnection = null;
+		
 		try {
 			URL url = new URL(YemekListUrl);
 			urlConnection = (HttpURLConnection) url.openConnection();
@@ -50,8 +54,10 @@ public class bService extends IntentService {
 				BufferedInputStream stream = new BufferedInputStream(urlConnection.getInputStream());
 				return isYemekTakipInputStream(stream);
 			}
-			} catch (Exception e) {
+			
+		} catch (Exception e) {
 			Log.d(TAG, "HTTP baðlantýsý kurulurken hata oluþtu", e);
+		
 		} finally {
 			if (urlConnection != null)
 				urlConnection.disconnect();
@@ -59,18 +65,22 @@ public class bService extends IntentService {
 		return false;
 		}
 	private boolean isYemekTakipInputStream(BufferedInputStream stream) {
+		
 		try {
 			DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
 			Document document = docBuilder.parse(stream);
+			
 			Element firstCube = (Element) document.getElementsByTagName("Cube").item(0);
 			Element secondCube = (Element) firstCube.getElementsByTagName("Cube").item(0);
 			NodeList YemekNodeList = secondCube.getElementsByTagName("Cube");
+			
 			int YemekNodeListLength = YemekNodeList.getLength();
 			for (int i = 0; i < YemekNodeListLength; i++) {
 				Element MenuElement = (Element) YemekNodeList.item(i);
 				String buguntarih = MenuElement.getAttribute("tarih");
 				Calendar c=Calendar.getInstance();
+				
 				int tarihb=c.get(Calendar.DAY_OF_MONTH);
 				int saat =c.get(Calendar.HOUR_OF_DAY);
 				if(saat>=12){
@@ -80,20 +90,26 @@ public class bService extends IntentService {
 				preferences=getSharedPreferences(PREF_GENEL,MODE_PRIVATE);
 				if(tarihc.equals(buguntarih)){
 					String bugunyemek = MenuElement.getAttribute("yemek");
+					
 					Editor editor=preferences.edit();
 					editor.putString(PREF_MENU, bugunyemek);
 					editor.apply();
+					
 					Intent intent = new Intent(this, wprovider.class);
 					intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
 					int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), wprovider.class));
 					intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
 					sendBroadcast(intent);
 					}
-				}
+				
+			}
+			
 			stopSelf();
-			} 
+			
+		} 
 		
 		catch (Exception e) {
+			
 			Log.d(TAG, "XML parse edilirken hata oluþtu", e);
 			}
 		stopSelf();

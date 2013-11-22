@@ -2,6 +2,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:alpha="1"
     android:background="@drawable/texture"
     android:clickable="true"
     android:orientation="vertical"
@@ -44,8 +45,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:alpha="0.45"
-        android:background="#CC0000"
+        android:alpha="0.55"
+        android:background="@drawable/bg_exit"
         android:fadingEdge="horizontal"
         android:text="Çıkış"
         android:textSize="25sp" />
@@ -97,9 +98,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/aboutButton"
         android:layout_alignParentLeft="true"
-        android:alpha="0.45"
-        android:background="#0066CC"
-        android:fadingEdge="horizontal"
+        android:alpha="0.55"
+        android:background="@drawable/bg_update"
         android:text="Widget&apos;ı Güncelle"
         android:textSize="25sp" />
 
@@ -109,8 +109,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/kaydet"
         android:layout_alignParentLeft="true"
-        android:alpha="0.45"
-        android:background="#ff9933"
+        android:alpha="0.55"
+        android:background="@drawable/bg_thoughts"
         android:text="Görüş Bildir"
         android:textSize="25sp" />
 
@@ -120,8 +120,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/gorus"
         android:layout_alignParentLeft="true"
-        android:alpha="0.45"
-        android:background="#669933"
+        android:alpha="0.55"
+        android:background="@drawable/bg_about"
         android:fadingEdge="horizontal"
         android:text="Uygulama Hakkında"
         android:textSize="25sp" />

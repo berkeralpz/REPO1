@@ -33,9 +33,10 @@ public class aboutActivity extends Activity {
 	    switch (item.getItemId()) {
 	    // Respond to the action bar's Up/Home button
 	    case android.R.id.home:
-	    	Intent toabout = new Intent(aboutActivity.this,MainActivity.class);	
-			toabout.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-			startActivity(toabout);
+	    	Intent tomain = new Intent(aboutActivity.this,MainActivity.class);	
+			tomain.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+			tomain.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(tomain);
 			overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 	        return true;
 	    }
