@@ -83,9 +83,21 @@ public class bService extends IntentService {
 				
 				int tarihb=c.get(Calendar.DAY_OF_MONTH);
 				int saat =c.get(Calendar.HOUR_OF_DAY);
-				if(saat>=12){
+				
+				int haftaningunu=c.get(Calendar.DAY_OF_WEEK);
+				
+				if(haftaningunu==7||haftaningunu==8){
+					if(haftaningunu==7){
+						tarihb=tarihb+2;
+					}
+					else if(haftaningunu==8){
+						tarihb++;
+					}
+				}
+				else if(saat>=12){
 					tarihb++;
 				}
+				
 				String tarihc=String.valueOf(tarihb);
 				preferences=getSharedPreferences(PREF_GENEL,MODE_PRIVATE);
 				if(tarihc.equals(buguntarih)){
@@ -97,6 +109,7 @@ public class bService extends IntentService {
 					
 					Intent intent = new Intent(this, wprovider.class);
 					intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+					
 					int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), wprovider.class));
 					intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
 					sendBroadcast(intent);

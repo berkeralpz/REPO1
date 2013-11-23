@@ -29,6 +29,7 @@ String gun;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 		Button gorus=(Button)findViewById(R.id.gorus);
 		gorus.setOnClickListener(new View.OnClickListener() {
 			
@@ -40,29 +41,40 @@ String gun;
 				 String cihaz=brand+" "+model;
 				
 				 final Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-				emailIntent.setType("plain/text");
+				
+				 emailIntent.setType("plain/text");
 				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"berkeralpz@gmail.com"});
 				emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "YemekWidget"+"("+cihaz+")"+" Görüþlerim");
 				emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Uygulama Hakkýndaki Görüþlerim: ");
 				startActivity(Intent.createChooser(emailIntent, "Mail göndermek için uygulama seçiniz..."));
-				//Görüþleri e-mail yoluyla ilet; konuya cihaz modelini yaz
+				//Gorusleri e-mail yoluyla ilet; konuya cihaz modelini yaz
 			}
 		});
 		preferences = getSharedPreferences("PREF_GENEL",
 		        MODE_PRIVATE);
 		final TextView yemekview=(TextView)findViewById(R.id.yemekv);
 		String syemek=preferences.getString(PREF_MENU, "");
+		
 		//yemekview.setText("Bugünkü yemek: "+yimek);
-		Calendar c=Calendar.getInstance();
+		
+		final Calendar c=Calendar.getInstance();
+		final int haftaningunu=c.get(Calendar.DAY_OF_WEEK);
+		
 		if(c.get(Calendar.HOUR_OF_DAY)<13){
 			gun=" Bugünkü";
-		}
+		} //bugün-yarýn kavramlarýný ayýrt edebilmek için
+		
 		else if (c.get(Calendar.HOUR_OF_DAY)>=13){
 			gun=" Yarýnki";
 			}
-		yemekview.setText(gun+" "+"Yemek: "+syemek);
-		//bugün-yarýn kavramlarýný ayýrt edebilmek için
 		
+		if(haftaningunu==7||haftaningunu==8){
+		yemekview.setText("Pazartesi Günü"+" "+"Yemek: "+syemek);
+		}
+		
+		else{
+			yemekview.setText(gun+" "+"Yemek: "+syemek);
+		}
 		
 		Button guncelle= (Button)findViewById(R.id.guncelle);
 		guncelle.setOnClickListener(new View.OnClickListener() {

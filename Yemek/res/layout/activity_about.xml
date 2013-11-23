@@ -71,7 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="30dp"
-                android:text="Son Derleme Tarihi: 20.11.2013"
+                android:text="Son Derleme Tarihi: 23.11.2013"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
 
