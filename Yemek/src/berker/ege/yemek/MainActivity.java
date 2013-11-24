@@ -1,6 +1,8 @@
 package berker.ege.yemek;
 
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.net.Uri;
 import android.os.Build;
@@ -25,6 +27,7 @@ private static final String PREF_MENU = "PREF_MENU";
 private static final int ID_WEB=Menu.FIRST;
 private SharedPreferences preferences;
 String gun;
+String syemek;
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,7 +56,8 @@ String gun;
 		preferences = getSharedPreferences("PREF_GENEL",
 		        MODE_PRIVATE);
 		final TextView yemekview=(TextView)findViewById(R.id.yemekv);
-		String syemek=preferences.getString(PREF_MENU, "");
+		
+		
 		
 		//yemekview.setText("Bugünkü yemek: "+yimek);
 		
@@ -64,12 +68,40 @@ String gun;
 			gun=" Bugünkü";
 		} //bugün-yarýn kavramlarýný ayýrt edebilmek için
 		
-		else if (c.get(Calendar.HOUR_OF_DAY)>=13){
+		else if (c.get(Calendar.HOUR_OF_DAY)>=12){
 			gun=" Yarýnki";
 			}
 		
+		yemekal();
+		
+		if (syemek==""){
+			Intent servis=new Intent(MainActivity.this,bService.class);
+			startService(servis);
+			
+			new Timer().schedule(new TimerTask() {
+
+		        @Override
+		        public void run() {
+		            runOnUiThread(new Runnable() {
+		                public void run() {
+		                	yemekal();
+		                	if(haftaningunu==7||haftaningunu==1){
+		            			yemekview.setText("Pazartesi Günü"+" "+"Yemek: "+syemek);
+		            		}
+		            		
+		            		else{
+		            			yemekview.setText(gun+" "+"Yemek: "+syemek);
+		            		}
+		                }
+		            });
+		        }
+		    }, 0, 1);
+		}
+		
+		
+		
 		if(haftaningunu==7||haftaningunu==1){
-		yemekview.setText("Pazartesi Günü"+" "+"Yemek: "+syemek);
+			yemekview.setText("Pazartesi Günü"+" "+"Yemek: "+syemek);
 		}
 		
 		else{
@@ -142,6 +174,9 @@ public void ayarlariyaz(){
 		 boolean yemeksecilimi=preferences.getBoolean(PREF_YEMEK, false);
 		// tatli.setChecked(tatlisecilimi);
 		// yemek.setChecked(yemeksecilimi);
+	}
+	public void yemekal(){
+		syemek=preferences.getString(PREF_MENU, "");
 	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
