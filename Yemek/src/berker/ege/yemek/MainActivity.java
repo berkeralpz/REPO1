@@ -60,7 +60,7 @@ String gun;
 		final Calendar c=Calendar.getInstance();
 		final int haftaningunu=c.get(Calendar.DAY_OF_WEEK);
 		
-		if(c.get(Calendar.HOUR_OF_DAY)<13){
+		if(c.get(Calendar.HOUR_OF_DAY)<12){
 			gun=" Bugünkü";
 		} //bugün-yarýn kavramlarýný ayýrt edebilmek için
 		
@@ -68,7 +68,7 @@ String gun;
 			gun=" Yarýnki";
 			}
 		
-		if(haftaningunu==7||haftaningunu==8){
+		if(haftaningunu==7||haftaningunu==1){
 		yemekview.setText("Pazartesi Günü"+" "+"Yemek: "+syemek);
 		}
 		

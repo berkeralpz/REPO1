@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import android.widget.RemoteViews;
+import android.widget.Toast;
 
 public class bService extends IntentService {
 	
@@ -86,16 +87,17 @@ public class bService extends IntentService {
 				
 				int haftaningunu=c.get(Calendar.DAY_OF_WEEK);
 				
-				if(haftaningunu==7||haftaningunu==8){
+				if(haftaningunu==7||haftaningunu==1){
 					if(haftaningunu==7){
 						tarihb=tarihb+2;
 					}
-					else if(haftaningunu==8){
+					else if(haftaningunu==1){
 						tarihb++;
 					}
 				}
 				else if(saat>=12){
 					tarihb++;
+					
 				}
 				
 				String tarihc=String.valueOf(tarihb);
