@@ -2,14 +2,22 @@
   <selector xmlns:android="http://schemas.android.com/apk/res/android"> 
       <item android:state_focused="true" android:state_pressed="true" >
             <color
-                android:color="#66cc66"/> 
+                android:color="#669900"/> 
+                </item>
+                <item android:state_focused="true" android:state_hovered="true" >
+            <color
+                android:color="#669900"/> 
                 </item>
       <item android:state_focused="false" android:state_pressed="true" >
             <color
-                android:color="#66cc66"/> 
+                android:color="#669900"/> 
+                  </item>
+                  <item android:state_focused="false" android:state_hovered="true" >
+            <color
+                android:color="#669900"/> 
                   </item>
                <item >
           <color
-              android:color="#669933"/>
+              android:color="#99cc00"/>
             </item>
         </selector>

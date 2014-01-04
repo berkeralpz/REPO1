@@ -23,29 +23,33 @@ public final class R {
          */
         public static final int activity_horizontal_margin=0x7f060000;
         public static final int activity_vertical_margin=0x7f060001;
+        public static final int app_defaultsize_h=0x7f060003;
+        public static final int app_defaultsize_w=0x7f060002;
     }
     public static final class drawable {
         public static final int bg_about=0x7f020000;
         public static final int bg_exit=0x7f020001;
         public static final int bg_thoughts=0x7f020002;
         public static final int bg_update=0x7f020003;
-        public static final int floating=0x7f020004;
-        public static final int logo=0x7f020005;
-        public static final int tex=0x7f020006;
-        public static final int texture=0x7f020007;
-        public static final int transback=0x7f020008;
+        public static final int ic_action_share=0x7f020004;
+        public static final int ic_action_upload=0x7f020005;
+        public static final int logo=0x7f020006;
+        public static final int tex=0x7f020007;
+        public static final int texture=0x7f020008;
+        public static final int transback=0x7f020009;
     }
     public static final class id {
-        public static final int aboutButton=0x7f0a0010;
+        public static final int about=0x7f0a0011;
         public static final int action_settings=0x7f0a0014;
-        public static final int gorus=0x7f0a0011;
-        public static final int guncelle=0x7f0a000f;
+        public static final int action_share=0x7f0a0015;
+        public static final int gorus=0x7f0a000f;
+        public static final int guncelle=0x7f0a0010;
         public static final int imageView1=0x7f0a0013;
-        public static final int kaydet=0x7f0a000c;
+        public static final int kaydet=0x7f0a000e;
         public static final int linkview=0x7f0a000a;
         public static final int relativeLayout1=0x7f0a000b;
-        public static final int relativeLayout2=0x7f0a000e;
-        public static final int relativeLayout3=0x7f0a000d;
+        public static final int relativeLayout2=0x7f0a000d;
+        public static final int relativeLayout3=0x7f0a000c;
         public static final int scrollView1=0x7f0a0000;
         public static final int textView1=0x7f0a0001;
         public static final int textView2=0x7f0a0004;

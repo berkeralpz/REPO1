@@ -95,7 +95,7 @@ public class bService extends IntentService {
 						tarihb++;
 					}
 				}
-				else if(saat>=12){
+				else if(saat>=13){
 					tarihb++;
 					
 				}

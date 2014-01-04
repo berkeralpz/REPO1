@@ -2,14 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/wlay"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="76dp"
+    android:alpha="0.9"
     android:background="@drawable/transback"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/relativeLayout1"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" >
     </RelativeLayout>
@@ -24,20 +25,31 @@
         android:baselineAlignBottom="false"
         android:cropToPadding="false"
         android:src="@drawable/logo" />
+    
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/imageView1" >
+       
+<ImageView
+    android:src="#ffffff"
+    android:layout_width="1dp"
+    android:layout_height="50dp"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp" />
 
         <TextView
             android:id="@+id/yemekv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:paddingLeft="20dp"
             android:text="Yükleniyor! Lütfen bekleyiniz..."
-            android:textColor="#000000" />
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

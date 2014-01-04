@@ -8,36 +8,78 @@
     android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/kaydet"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="42dp"
-        android:gravity="top|center"
-        android:paddingLeft="20dp" >
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/relativeLayout1"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="26dp"
-        android:gravity="top|center"
-        android:paddingLeft="20dp" >
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
+    <ScrollView
+        android:id="@+id/scrollView1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="45dp" >
-    </RelativeLayout>
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="42dp"
+                android:gravity="top|center"
+                android:paddingLeft="20dp" >
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.8"
+                android:paddingLeft="10dp"
+                android:text="Merhaba arkadaşlar,"
+                android:textColor="#CCCCCC"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:alpha="0.8"
+                android:paddingLeft="10dp"
+                android:text="Widget&apos;ı Widget&apos;lar sekmesinden ana sayfanıza taşıyarak kullanabilirsiniz.  Afiyet olsun :)"
+                android:textColor="#CCCCCC"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="26dp"
+                android:gravity="top|center"
+                android:paddingLeft="20dp" >
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/yemekv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:alpha="0.5"
+                android:paddingLeft="10dp"
+                android:paddingRight="5dp"
+                android:textColor="#CCFFFF"
+                android:textSize="15sp"
+                android:textStyle="italic" />
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="45dp" >
+            </RelativeLayout>
+        </LinearLayout>
+
+    </ScrollView>
 
     <Button
         android:id="@+id/kaydet"
@@ -45,62 +87,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:alpha="0.55"
+        android:alpha="0.75"
         android:background="@drawable/bg_exit"
         android:fadingEdge="horizontal"
         android:text="Çıkış"
-        android:textSize="25sp" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/relativeLayout2"
-        android:layout_marginTop="48dp"
-        android:alpha="0.8"
-        android:paddingLeft="10dp"
-        android:text="Widget&apos;ı Widget&apos;lar sekmesinden ana sayfanıza taşıyarak kullanabilirsiniz.  Afiyet olsun :)"
-        android:textColor="#CCCCCC"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/relativeLayout2"
-        android:layout_toRightOf="@+id/relativeLayout2"
-        android:alpha="0.8"
-        android:paddingLeft="10dp"
-        android:text="Merhaba arkadaşlar,"
-        android:textColor="#CCCCCC"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/yemekv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
-        android:layout_marginTop="28dp"
-        android:alpha="0.5"
-        android:paddingLeft="10dp"
-        android:paddingRight="5dp"
-        android:textColor="#CCFFFF"
-        android:textSize="15sp"
-        android:textStyle="italic" />
-
-    <Button
-        android:id="@+id/guncelle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/aboutButton"
-        android:layout_alignParentLeft="true"
-        android:alpha="0.55"
-        android:background="@drawable/bg_update"
-        android:text="Widget&apos;ı Güncelle"
         android:textSize="25sp" />
 
     <Button
@@ -109,18 +99,29 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/kaydet"
         android:layout_alignParentLeft="true"
-        android:alpha="0.55"
+        android:alpha="0.75"
         android:background="@drawable/bg_thoughts"
         android:text="Görüş Bildir"
         android:textSize="25sp" />
 
     <Button
-        android:id="@+id/aboutButton"
+        android:id="@+id/guncelle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/about"
+        android:layout_alignParentLeft="true"
+        android:alpha="0.75"
+        android:background="@drawable/bg_update"
+        android:text="Widget&apos;ı Güncelle"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/about"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/gorus"
         android:layout_alignParentLeft="true"
-        android:alpha="0.55"
+        android:alpha="0.75"
         android:background="@drawable/bg_about"
         android:fadingEdge="horizontal"
         android:text="Uygulama Hakkında"

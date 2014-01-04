@@ -1,18 +1,25 @@
 package berker.ege.yemek;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Color;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -23,17 +30,20 @@ public class MainActivity extends Activity {
 private static final String PREF_TATLI="PREF_TATLI";
 private static final String PREF_YEMEK="PREF_YEMEK";
 private static final String PREF_MENU = "PREF_MENU";
-//private CheckBox tatli,yemek;
-private static final int ID_WEB=Menu.FIRST;
 private SharedPreferences preferences;
+boolean checkVal;
 String gun;
+String guni;
 String syemek;
+@SuppressLint("NewApi")
 @Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		Button gorus=(Button)findViewById(R.id.gorus);
+		final Button gorus=(Button)findViewById(R.id.gorus);
+	
+	
 		gorus.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -49,7 +59,17 @@ String syemek;
 				emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"berkeralpz@gmail.com"});
 				emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "YemekWidget"+"("+cihaz+")"+" Görüþlerim");
 				emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "Uygulama Hakkýndaki Görüþlerim: ");
-				startActivity(Intent.createChooser(emailIntent, "Mail göndermek için uygulama seçiniz..."));
+				final PackageManager pm = getPackageManager();
+			    final List<ResolveInfo> matches = pm.queryIntentActivities(emailIntent, 0);
+			    ResolveInfo best = null;
+			    for(final ResolveInfo info : matches)
+			        if (info.activityInfo.packageName.endsWith(".gm") || info.activityInfo.name.toLowerCase().contains("gmail"))
+			            best = info;
+			    if (best != null)
+			        emailIntent.setClassName(best.activityInfo.packageName, best.activityInfo.name);
+			   startActivity(emailIntent);
+				//startActivity(Intent.createChooser(emailIntent, "Mail göndermek için uygulama seçiniz..."));
+			   //Uygulama otomatik seçilmeli...
 				//Gorusleri e-mail yoluyla ilet; konuya cihaz modelini yaz
 			}
 		});
@@ -63,14 +83,29 @@ String syemek;
 		
 		final Calendar c=Calendar.getInstance();
 		final int haftaningunu=c.get(Calendar.DAY_OF_WEEK);
+		final int saatc=c.get(Calendar.HOUR_OF_DAY);
+		if(haftaningunu==5&&saatc>=13){
+			checkVal=true;
+		}
+		else{
+			checkVal=false;
+		}
 		
-		if(c.get(Calendar.HOUR_OF_DAY)<12){
+		if(c.get(Calendar.HOUR_OF_DAY)<=12){
 			gun=" Bugünkü";
+			guni="Bugün";
 		} //bugün-yarýn kavramlarýný ayýrt edebilmek için
 		
-		else if (c.get(Calendar.HOUR_OF_DAY)>=12){
-			gun=" Yarýnki";
+		else if (c.get(Calendar.HOUR_OF_DAY)>=13){
+			if(haftaningunu==6) {
+			gun="Pazartesi günü";
+    		guni="Pazartesi günü";
+		}
+			else{
+				gun=" Yarýnki";
+				guni="Yarýn";
 			}
+		}
 		
 		yemekal();
 		
@@ -86,7 +121,9 @@ String syemek;
 		                public void run() {
 		                	yemekal();
 		                	if(haftaningunu==7||haftaningunu==1){
-		            			yemekview.setText("Pazartesi Günü"+" "+"Yemek: "+syemek);
+		                		gun="Pazartesi günü";
+		                		guni="Pazartesi günü";
+		            			yemekview.setText(gun+" "+"Yemek: "+syemek);
 		            		}
 		            		
 		            		else{
@@ -101,11 +138,13 @@ String syemek;
 		
 		
 		if(haftaningunu==7||haftaningunu==1){
-			yemekview.setText("Pazartesi Günü"+" "+"Yemek: "+syemek);
+			gun="Pazartesi günü";
+			guni="Pazartesi günü";
+			yemekview.setText(gun+" "+"yemek: "+syemek);
 		}
 		
 		else{
-			yemekview.setText(gun+" "+"Yemek: "+syemek);
+			yemekview.setText(gun+" "+"yemek: "+syemek);
 		}
 		
 		Button guncelle= (Button)findViewById(R.id.guncelle);
@@ -135,7 +174,7 @@ String syemek;
 		//Bu özelliðe gerek yoktu ve Yüklenme süresini uzatabilirdi.
 		
 		Button kaydet=(Button)findViewById(R.id.kaydet);
-		 Button about=(Button)findViewById(R.id.aboutButton);
+		 Button about=(Button)findViewById(R.id.about);
 		 about.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -165,38 +204,46 @@ String syemek;
 }
 public void ayarlariyaz(){
 		Editor editor=preferences.edit();
-		//editor.putBoolean(PREF_TATLI, tatli.isChecked());
-		//editor.putBoolean(PREF_YEMEK, yemek.isChecked());
 		editor.apply();
 	}
 	public void ayarlariokuveuygula(){
 		boolean tatlisecilimi=preferences.getBoolean(PREF_TATLI, false);
 		 boolean yemeksecilimi=preferences.getBoolean(PREF_YEMEK, false);
-		// tatli.setChecked(tatlisecilimi);
-		// yemek.setChecked(yemeksecilimi);
 	}
 	public void yemekal(){
 		syemek=preferences.getString(PREF_MENU, "");
 	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		menu.add(Menu.NONE,ID_WEB,0,"Listeyi Web üzerinden görüntüle");
-		return true;
+	    // Inflate the menu items for use in the action bar
+	    MenuInflater inflater = getMenuInflater();
+	    inflater.inflate(R.menu.main, menu);
+	    return true;
 	}
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-		switch(item.getItemId()){
-	case ID_WEB:
-		String url="http://www.egelisesi.k12.tr/yemek-listesi.html";
-		Intent weblist=new Intent(Intent.ACTION_VIEW);
-		weblist.setData(Uri.parse(url));
-		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-		startActivity(weblist);
-		//Web üzerinden yemek listesini açar
-			return super.onOptionsItemSelected(item);
-	}
-		return false;
-	}
-	}
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	  
+	    case R.id.action_share:
+	    	Intent paylas= new Intent(Intent.ACTION_SEND);
+	    	paylas.setType("text/plain");
+	    	paylas.putExtra(Intent.EXTRA_TEXT, guni+" yemekte "+syemek+" var.");
+	    	startActivity(Intent.createChooser(paylas, "Yemeði paylaþmak için uygulama seçiniz..."));
+	    	return true;
+	   
+	    case R.id.action_settings:
+	    		String url="http://www.egelisesi.k12.tr/yemek-listesi.html";
+	    		Intent weblist=new Intent(Intent.ACTION_VIEW);
+	    		weblist.setData(Uri.parse(url));
+	    		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+	    		startActivity(weblist);
+	    		//Web üzerinden yemek listesini açar
+
+	            return true;
+	           
+	    }
+	    return super.onOptionsItemSelected(item);
+	}}
+		
